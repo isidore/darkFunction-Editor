@@ -18,6 +18,7 @@
 	<classpathentry kind="lib" path="lib/tinylaf/tinylaf.jar"/>
 	<classpathentry kind="lib" path="lib/xmlenc-0.52.jar"/>
 	<classpathentry kind="lib" path="yguard/yguard.jar"/>
+	<classpathentry kind="lib" path="lib/ApprovalTests.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

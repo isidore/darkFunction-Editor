@@ -16,8 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with darkFunction Editor.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
 package dfEditor;
 
 /**
@@ -25,37 +23,64 @@ package dfEditor;
  * @author s4m20
  */
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextField;
 
-
-public class IntegerTextField extends JTextField {
-
-    final static String badchars
-       = "`~!@#$%^&*()_+=\\|\"':;?/>.<, ";
-
-    public void processKeyEvent(KeyEvent ev) {
-
-        char c = ev.getKeyChar();
-
-        if((Character.isLetter(c) && !ev.isAltDown())
-           || badchars.indexOf(c) > -1) {
-            ev.consume();
-            return;
-        }
-        if(c == '-' && getDocument().getLength() > 0)
-            ev.consume();
-        else super.processKeyEvent(ev);
-
-    }
-    public int getNum()
+public class IntegerTextField extends JTextField
+{
+  final static String badchars     = "`~!@#$%^&*()_+=\\|\"':;?/>.<, ";
+  private int         minimum      = Integer.MIN_VALUE;
+  private int         defaultValue = -1;
+  private int         maximum      = Integer.MAX_VALUE;
+  public void processKeyEvent(KeyEvent ev)
+  {
+    char c = ev.getKeyChar();
+    if ((Character.isLetter(c) && !ev.isAltDown()) || -1 < badchars.indexOf(c))
     {
-        try
-        {
-            return Integer.parseInt(this.getText());
-        }
-        catch (java.lang.NumberFormatException e)
-        {
-            return -1;
-        }
+      ev.consume();
+      return;
     }
+    if (c == '-' && 0 < getDocument().getLength())
+      ev.consume();
+    else
+      super.processKeyEvent(ev);
+  }
+  public int getNum()
+  {
+    String text = this.getText();
+    return getNumber(text);
+  }
+  public int getNumber(String text)
+  {
+    try
+    {
+      int value = Integer.parseInt(text);
+      return Math.min(Math.max(value, minimum), maximum);
+    }
+    catch (java.lang.NumberFormatException e)
+    {
+      return defaultValue;
+    }
+  }
+  public IntegerTextField withMinimum(int minimum)
+  {
+    this.minimum = minimum;
+    return this;
+  }
+  public IntegerTextField withDefault(int defaultValue)
+  {
+    this.defaultValue = defaultValue;
+    return this;
+  }
+  public IntegerTextField withMaximum(int maximum)
+  {
+    this.maximum = maximum;
+    return this;
+  }
+  @Override
+  public String toString()
+  {
+    return "IntegerTextField [minimum=" + minimum + ", defaultValue=" + defaultValue + ", maximum=" + maximum
+        + "]";
+  }
 }
