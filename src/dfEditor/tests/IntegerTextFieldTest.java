@@ -1,4 +1,4 @@
-package dfEditor;
+package dfEditor.tests;
 
 import org.approvaltests.Approvals;
 import org.approvaltests.reporters.JunitReporter;

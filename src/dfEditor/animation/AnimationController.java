@@ -2133,7 +2133,7 @@ private void exportGifButtonActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton addCellButton;
     private javax.swing.JButton addToFrameButton;
     private javax.swing.JLabel angleLabel;
-    private javax.swing.JSpinner angleSpinner;
+    public javax.swing.JSpinner angleSpinner;
     private javax.swing.JList animationList;
     private dfEditor.animation.AnimationPanel animationPanel1;
     private dfEditor.animation.AnimationStripPanel animationStripPanel;
@@ -2166,7 +2166,7 @@ private void exportGifButtonActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton removeSpriteButton;
     private javax.swing.JButton rotateACWButton;
     private javax.swing.JButton rotateCWButton;
-    private dfEditor.SpriteList spriteList;
+    public dfEditor.SpriteList spriteList;
     private javax.swing.JInternalFrame spriteListControlPanel;
     private javax.swing.JToggleButton spriteListToggle;
     private dfEditor.SimpleGraphicPanel spritePreviewPanel;

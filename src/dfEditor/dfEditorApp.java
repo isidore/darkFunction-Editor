@@ -22,9 +22,13 @@ package dfEditor;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+
 import java.io.File;
+
 import javax.swing.UIManager;
+
 import java.awt.Toolkit;
+
 import de.muntjak.tinylookandfeel.*;
 
 
@@ -34,7 +38,7 @@ public class dfEditorApp extends SingleFrameApplication
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup()
+    @Override public void startup()
     {          
         final String userDir = dfEditorApp.getUserDataDirectory();
         final dfEditorApp self = this;
@@ -55,6 +59,10 @@ public class dfEditorApp extends SingleFrameApplication
                 self.showMainView();
             }
         });
+    }
+    @Override
+    public void initialize(String[] paramArrayOfString) {
+    	super.initialize(paramArrayOfString);
     }
     
     private void showMainView()
@@ -102,4 +110,8 @@ public class dfEditorApp extends SingleFrameApplication
     {        
         super.shutdown();
     }
+	public dfEditorView getViewer() {
+		return sv;
+		
+	}
 }

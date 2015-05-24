@@ -21,16 +21,25 @@
 package dfEditor;
 
 import dfEditor.animation.AnimationController;
+
 import org.jdesktop.application.Action;
 import org.jdesktop.application.FrameView;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
+
 import dfEditor.command.CommandManager;
+
 import javax.swing.JFileChooser;
+
 import dfEditor.io.*;
+
 import javax.swing.tree.DefaultTreeModel;
+
+import java.awt.Component;
 import java.awt.event.*;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -407,75 +416,81 @@ public class dfEditorView extends FrameView implements TaskChangeListener, org.j
         {
             java.io.File selectedFile = chooser.getSelectedFile();
 
-            if (selectedFile != null && selectedFile.exists())
-            {
-                java.awt.Component task = null;
-
-                boolean bLoaded = false;
-                if (Utils.getExtension(selectedFile).equals(CustomFilter.EXT_ANIM)) // meh
-                {
-                    AnimationController animController = new AnimationController(new CommandManager(undoMenuItem, redoMenuItem), false, helpLabel, this, fileChooser);
-                    try {
-                        AnimationSetReader reader = new AnimationSetReader(selectedFile);
-                        bLoaded = animController.load(reader);                    
-                        task = animController;
-                        if (helpLabel != null)
-                            helpLabel.setText("Loaded animations " + selectedFile.toString());
-                    } catch (Exception e) {
-                        javax.swing.JOptionPane.showMessageDialog(null, "Could not load animation file!", "File error", JOptionPane.ERROR_MESSAGE);
-                    }                    
-                }
-                else if (Utils.getExtension(selectedFile).equals(CustomFilter.EXT_SPRITE))
-                {
-                    JFrame frame = this.getFrame();
-                    SingleOrMultiDialog dialog = new SingleOrMultiDialog(frame, true);
-                    dialog.setLocationRelativeTo(frame);
-                                        
-                    SpritesheetReader reader = new SpritesheetReader(selectedFile);
-                    String imagePath = reader.getImagePath();
-                    DefaultTreeModel model = reader.getTreeModel();         
-
-                    int result = dialog.showDialog();
-                    
-                    switch (result)
-                    {
-                        case 0:
-                        {
-                            SpritesheetController spriteSheet = new SpritesheetController(new CommandManager(undoMenuItem, redoMenuItem), false, helpLabel, this, fileChooser);
-                            bLoaded = spriteSheet.load(imagePath, model);
-                            task = spriteSheet;
-                            break;
-                        }
-                        case 1:
-                        {
-                            SpriteImageController spriteSheet = new SpriteImageController(new CommandManager(undoMenuItem, redoMenuItem), helpLabel, this, fileChooser);
-                            bLoaded = spriteSheet.load(imagePath, model);
-                            task = spriteSheet;
-                            break;
-                        }
-                    }                              
-
-                    if (helpLabel != null)
-                        helpLabel.setText("Loaded spritesheet " + selectedFile.toString());
-                }
-
-                if (bLoaded && task != null)
-                {
-                    addTab(task);
-                    ((dfEditorTask)task).setSavedFile(selectedFile);
-                    tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), selectedFile.getName());
-                }
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(
-                   null,
-                   "No such file exists",
-                   "File not found",
-                   JOptionPane.ERROR_MESSAGE);            
-            }
+            load(selectedFile);
         }
     }
+
+	public Component load(java.io.File selectedFile) {
+		if (selectedFile != null && selectedFile.exists())
+		{
+		    java.awt.Component task = null;
+
+		    boolean bLoaded = false;
+		    if (Utils.getExtension(selectedFile).equals(CustomFilter.EXT_ANIM)) // meh
+		    {
+		        AnimationController animController = new AnimationController(new CommandManager(undoMenuItem, redoMenuItem), false, helpLabel, this, fileChooser);
+		        try {
+		            AnimationSetReader reader = new AnimationSetReader(selectedFile);
+		            bLoaded = animController.load(reader);                    
+		            task = animController;
+		            if (helpLabel != null)
+		                helpLabel.setText("Loaded animations " + selectedFile.toString());
+		        } catch (Exception e) {
+		            javax.swing.JOptionPane.showMessageDialog(null, "Could not load animation file!", "File error", JOptionPane.ERROR_MESSAGE);
+		        }                    
+		    }
+		    else if (Utils.getExtension(selectedFile).equals(CustomFilter.EXT_SPRITE))
+		    {
+		        JFrame frame = this.getFrame();
+		        SingleOrMultiDialog dialog = new SingleOrMultiDialog(frame, true);
+		        dialog.setLocationRelativeTo(frame);
+		                            
+		        SpritesheetReader reader = new SpritesheetReader(selectedFile);
+		        String imagePath = reader.getImagePath();
+		        DefaultTreeModel model = reader.getTreeModel();         
+
+		        int result = dialog.showDialog();
+		        
+		        switch (result)
+		        {
+		            case 0:
+		            {
+		                SpritesheetController spriteSheet = new SpritesheetController(new CommandManager(undoMenuItem, redoMenuItem), false, helpLabel, this, fileChooser);
+		                bLoaded = spriteSheet.load(imagePath, model);
+		                task = spriteSheet;
+		                break;
+		            }
+		            case 1:
+		            {
+		                SpriteImageController spriteSheet = new SpriteImageController(new CommandManager(undoMenuItem, redoMenuItem), helpLabel, this, fileChooser);
+		                bLoaded = spriteSheet.load(imagePath, model);
+		                task = spriteSheet;
+		                break;
+		            }
+		        }                              
+
+		        if (helpLabel != null)
+		            helpLabel.setText("Loaded spritesheet " + selectedFile.toString());
+		    }
+
+		    if (bLoaded && task != null)
+		    {
+		        addTab(task);
+		        ((dfEditorTask)task).setSavedFile(selectedFile);
+		        tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), selectedFile.getName());
+		        return task;
+		    }
+		}
+		else
+		{
+		    JOptionPane.showMessageDialog(
+		       null,
+		       "No such file exists",
+		       "File not found",
+		       JOptionPane.ERROR_MESSAGE);            
+		}
+		return null;
+	}
 
     private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
         updateMenuBar();
