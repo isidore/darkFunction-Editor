@@ -5,6 +5,8 @@ import org.approvaltests.reporters.JunitReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.Test;
 
+import dfEditor.IntegerTextField;
+
 @UseReporter(JunitReporter.class)
 public class IntegerTextFieldTest
 {
