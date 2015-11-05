@@ -547,9 +547,9 @@ public class SpriteImageController extends dfEditorPanel implements GraphicPanel
     untrimButton = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     packButton = new javax.swing.JButton();
-    textureWidthField = new dfEditor.IntegerTextField().withMinimum(1).withMaximum(10000).withDefault(1);
-    textureHeightField = new dfEditor.IntegerTextField().withMinimum(1).withMaximum(10000).withDefault(1);
-    minSpacingField = new dfEditor.IntegerTextField().withMinimum(1).withMaximum(10000).withDefault(1);
+    textureWidthField = new dfEditor.IntegerTextField();
+    textureHeightField = new dfEditor.IntegerTextField();
+    minSpacingField = new dfEditor.IntegerTextField();
     spritePopupMenu.setName("spritePopupMenu"); // NOI18N
     org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application
         .getInstance(dfEditor.dfEditorApp.class).getContext().getResourceMap(SpriteImageController.class);
@@ -995,7 +995,7 @@ public class SpriteImageController extends dfEditorPanel implements GraphicPanel
   }//GEN-LAST:event_removeSpriteItemActionPerformed
   private void addSpriteItemActionPerformed(java.awt.event.ActionEvent evt)
   {//GEN-FIRST:event_addSpriteItemActionPerformed
-    //addSpriteAt(viewPanel.suggestVisibleSpriteRect());
+   //addSpriteAt(viewPanel.suggestVisibleSpriteRect());
   }//GEN-LAST:event_addSpriteItemActionPerformed
   private void addDirItemActionPerformed(java.awt.event.ActionEvent evt)
   {//GEN-FIRST:event_addDirItemActionPerformed
@@ -1039,7 +1039,7 @@ public class SpriteImageController extends dfEditorPanel implements GraphicPanel
     }
     repaint();
   }//GEN-LAST:event_untrimButtonActionPerformed
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JMenuItem     addDirItem;
   private javax.swing.JButton       addFolderButton;
   private javax.swing.JButton       addSpriteButton;
