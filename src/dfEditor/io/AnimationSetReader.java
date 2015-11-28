@@ -108,13 +108,6 @@ public class AnimationSetReader
           if (treeNode != null && treeNode.isLeaf())
           {
             GraphicObject spriteArea = (GraphicObject) treeNode.getCustomObject();
-            //                        boolean centreAnchor = false;
-            //                        String anchorString = ((Element)spriteNode).getAttribute("anchor");
-            //                        if (anchorString != null && anchorString.length() != 0)
-            //                        {
-            //                            if (anchorString.equals("centre"))
-            //                                centreAnchor = true;
-            //                        }
             int x = 0;
             int y = 0;
             int z = 0;
@@ -162,82 +155,4 @@ public class AnimationSetReader
     }
     return animations;
   }
-  //    public ArrayList<Animation> getAnimations()
-  //    {
-  //        ArrayList<Animation> animationList = new ArrayList<Animation>();
-  //
-  //        NodeList animNodeList = doc.getElementsByTagName("anim");
-  //        for (int i=0; i<animNodeList.getLength(); ++i)
-  //        {
-  //            Node animNode = animNodeList.item(i);
-  //            Animation animation = new Animation( ((Element)animNode).getAttribute("name") );
-  //
-  //            NodeList cellNodeList = animNode.getChildNodes();
-  //
-  //            for (int j=0; j<cellNodeList.getLength(); ++j)
-  //            {
-  //                Node cellNode = cellNodeList.item(j);
-  //                AnimationCell cell = new AnimationCell();
-  //                cell.setDelay( Integer.parseInt(((Element)cellNode).getAttribute("delay")) );
-  //                //cell.addSprite(null, null);
-  //            }
-  //
-  //        }
-  //
-  //        return animationList;
-  //    }
-  //    public DefaultTreeModel getTreeModel()
-  //    {
-  //        DefaultTreeModel retTree = null;
-  //
-  //        NodeList defList = doc.getElementsByTagName("definitions");
-  //
-  //        // only support one bunch of definitions, use the first
-  //        if (defList.getLength() > 0)
-  //        {
-  //            Element first = (Element)defList.item(0);
-  //
-  //            if (first != null && first.getFirstChild() != null)
-  //            {
-  //                retTree = createTreeModelFromDOM((Element)first.getFirstChild());
-  //            }
-  //        }
-  //
-  //        return retTree;
-  //    }
-  //
-  //    private DefaultTreeModel createTreeModelFromDOM(Element aRootNode)
-  //    {
-  //        CustomNode rootNode = createCustomNodeFromDOMNode(aRootNode);
-  //
-  //        DefaultTreeModel treeModel = new DefaultTreeModel(rootNode, true);
-  //
-  //        return treeModel;
-  //    }
-  //
-  //    public CustomNode createCustomNodeFromDOMNode(Element aDOMNode)
-  //    {
-  //        CustomNode node = new CustomNode(aDOMNode.getAttribute("name"), aDOMNode.hasChildNodes());
-  //
-  //        if (node.isLeaf() && aDOMNode.getTagName().equals("spr"))
-  //        {
-  //            node.setCustomObject(new SelectionBox(
-  //                    new Rectangle(
-  //                        Integer.parseInt(aDOMNode.getAttribute("x")),
-  //                        Integer.parseInt(aDOMNode.getAttribute("y")),
-  //                        Integer.parseInt(aDOMNode.getAttribute("w")),
-  //                        Integer.parseInt(aDOMNode.getAttribute("h"))),
-  //                    node.getColour()));
-  //        }
-  //        else
-  //        {
-  //            for (int i=0; i<aDOMNode.getChildNodes().getLength(); ++i)
-  //            {
-  //                CustomNode childNode = createCustomNodeFromDOMNode((Element)aDOMNode.getChildNodes().item(i));
-  //                node.add(childNode);
-  //            }
-  //        }
-  //
-  //        return node;
-  //    }
 }
