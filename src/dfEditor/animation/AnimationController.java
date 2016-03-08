@@ -33,7 +33,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractSpinnerModel;
@@ -1240,7 +1239,28 @@ public class AnimationController extends dfEditorPanel
   // appends unique number to animation name before adding to list
   private void addAnimation(final Animation aAnimation)
   {
-    String name = getUniqueName(aAnimation);
+    boolean bExists = false;
+    String name = aAnimation.getName();
+    int animationNameCounter = 1;
+    do
+    {
+      bExists = false;
+      for (int i = 0; i < animationList.getModel().getSize(); ++i)
+      {
+        String nameInList = ((Animation) (animationList.getModel().getElementAt(i))).getName();
+        if (nameInList.equals(name))
+        {
+          bExists = true;
+          break;
+        }
+      }
+      if (bExists)
+      {
+        name = aAnimation.getName() + " " + animationNameCounter;
+        animationNameCounter++;
+      }
+    }
+    while (bExists == true);
     aAnimation.setName(name);
     aAnimation.addAnimationListener(this);
     if (aAnimation != null)
@@ -1249,49 +1269,9 @@ public class AnimationController extends dfEditorPanel
       cmdManager.execute(new AddAnimationCommand(animationList, aAnimation));
     }
   }
-  private String getUniqueName(final Animation aAnimation)
-  {
-    return getUniqueName(aAnimation.getName(), getNames());
-  }
-  public static String getUniqueName(String name, List<String> names)
-  {
-    boolean bExists = false;
-    String name2 = name;
-    int animationNameCounter = 1;
-    do
-    {
-      bExists = false;
-      for (int i = 0; i < names.size(); ++i)
-      {
-        String nameInList = names.get(i);
-        if (nameInList.equals(name2))
-        {
-          bExists = true;
-          break;
-        }
-      }
-      if (bExists)
-      {
-        name2 = name + " " + animationNameCounter;
-        animationNameCounter++;
-      }
-    }
-    while (bExists == true);
-    return name2;
-  }
-  private ArrayList<String> getNames()
-  {
-    ArrayList<String> names = new ArrayList<>();
-    for (int i = 0; i < animationList.getModel().getSize(); ++i)
-    {
-      String nameInList = ((Animation) (animationList.getModel().getElementAt(i))).getName();
-      names.add(nameInList);
-    }
-    return names;
-  }
   private void addAnimationButtonActionPerformed(java.awt.event.ActionEvent evt)
   {//GEN-FIRST:event_addAnimationButtonActionPerformed
-    this.addAnimation(new Animation("Animation MYTEST"));
+    this.addAnimation(new Animation("Animation"));
     dfEditor.command.Command c = (new AddCellCommand(getWorkingAnimation(), new AnimationCell()));
     c.execute();
   }//GEN-LAST:event_addAnimationButtonActionPerformed
@@ -1389,7 +1369,7 @@ public class AnimationController extends dfEditorPanel
   }//GEN-LAST:event_spriteTreeValueChanged
   private void addToFrameButtonActionPerformed(java.awt.event.ActionEvent evt)
   {//GEN-FIRST:event_addToFrameButtonActionPerformed
-   // get selected node
+    // get selected node
     CustomNode selectedNode = (CustomNode) spriteTree.getSelectedNode();
     cmdManager.execute(new AddSpriteToCellCommand(selectedNode, this, new Point(0, 0)));
     //addNodeToCell(selectedNode, workingCell);
