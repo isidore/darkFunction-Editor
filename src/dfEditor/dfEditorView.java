@@ -52,7 +52,7 @@ public class dfEditorView extends FrameView implements TaskChangeListener, org.j
     public dfEditorView(dfEditorApp app) {
         super(app);
 
-        fileChooser = new JFileChooser();
+        fileChooser = new JFileChooser(".");
         
         initComponents();
 
