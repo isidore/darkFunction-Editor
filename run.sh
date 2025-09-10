@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-JAR_FILE="dist/dfEditor.jar"
+JAR_FILE="target/dfEditor-1.0.0-jar-with-dependencies.jar"
 
 [ -f "$JAR_FILE" ] || { echo "JAR not found. Run ./build.sh first" >&2; exit 1; }
 

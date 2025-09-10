@@ -1,9 +1,9 @@
 [tools]
 java = "temurin-11.0.28+6"
-ant = "1.10.15"
+maven = "3.9.4"
 
 [tasks.build]
-run = "ant -Dplatforms.JDK_1.6.home=\"$(mise where java)\" clean jar"
+run = "mvn clean package"
 
 [tasks.run]
-run = "java -jar dist/dfEditor.jar"
+run = "java -jar target/dfEditor-1.0.0-jar-with-dependencies.jar"

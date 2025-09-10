@@ -7,6 +7,4 @@ if ! command -v mise &> /dev/null; then
 fi
 
 mise install
-export JAVA_HOME="$(mise where java)"
-export PATH="$JAVA_HOME/bin:$PATH"
-ant -Dplatforms.JDK_1.6.home="$JAVA_HOME" -Djava.executable="$JAVA_HOME/bin/java" clean jar
+mvn clean package
