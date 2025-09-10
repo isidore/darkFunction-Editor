@@ -73,66 +73,7 @@
     -->
 
     <target name="-post-jar">
-      <taskdef  name="yguard"
-                classname="com.yworks.yguard.YGuardTask"
-                classpath="yguard/yguard.jar"/>
-      <yguard>
-        <inoutpair in="dist/dfEditor.jar" out="dist/dfEditor.jar"/>
-
-        <externalclasses>
-            <pathelement location="lib/isorelax.jar"/>
-            <pathelement location="lib/xmlenc-0.52.jar"/>
-            <pathelement location="lib/swing-app-framework/appframework-1.0.3.jar" />
-            <pathelement location="lib/org-openide-awt.jar" />
-            <pathelement location="lib/tinylaf/tinylaf.jar" />
-            <pathelement location="lib/AbsoluteLayout.jar" />
-        </externalclasses>
-
-        <rename mainclass="dfEditor.dfEditorApp" logfile="yguard/renamelog.xml">
-            <property name="error-checking" value="pedantic"/>
-            <keep>
-                <class name="dfEditor.dfEditorApp" />
-                <class>
-                    <patternset>
-                        <include name="dfEditor.SpritesheetController*"/>
-                        <include name="dfEditor.SpriteImageController*"/>
-                        <include name="dfEditor.SingleOrMultiDialog*"/>
-                        <include name="dfEditor.dfEditorView*"/>                        
-                        <include name="dfEditor.dfEditorAboutBox*"/>
-                        <include name="dfEditor.animation.AnimationController*"/>
-                        <include name="dfEditor.animation.resources.*"/>
-                        <include name="dfEditor.resources.*"/>
-                        <include name="dfEditor.FeedbackDialog*"/>
-                    </patternset>
-                </class>                
-            </keep>
-        </rename>        
-      </yguard>
-          
-      <copy file="./lib/tinylaf/license/LGPL_License.txt" todir="./dist/lib/tinylaf"/>
-      <copy file="./lib/tinylaf/license/GPL_License.txt" todir="./dist/lib/tinylaf"/>
-      
-      <copy file="./dist/dfEditor.jar" todir="./izpack"/>
-      <delete dir="./izpack/lib"/>
-      <mkdir dir="./izpack/lib"/>
-      <copy todir="./izpack/lib">
-        <fileset dir="./dist/lib">
-        </fileset>
-      </copy>
-
-       <taskdef name="izpack" classpath="./izpack/standalone-compiler.jar"
-            classname="com.izforge.izpack.ant.IzPackTask"/>       
-       <izpack  input="${basedir}/izpack/dFEditor Installer.xml" 
-                output="${basedir}/izpack/dfEditor Installer.jar" 
-                basedir="${basedir}/izpack/"
-       />
-
-
-     
-
-      <copy file="./izpack/dFEditor Installer.jar" todir="./"/>
-      <!--<copy file="./izpack/dFEditor Installer.jar" todir="../darkfunction.com/files/"/>-->
-
+      <!-- Skip obfuscation and installer creation for simple build -->
     </target>
 
 

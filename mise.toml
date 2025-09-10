@@ -1,0 +1,9 @@
+[tools]
+java = "temurin-11.0.28+6"
+ant = "1.10.15"
+
+[tasks.build]
+run = "ant -Dplatforms.JDK_1.6.home=\"$(mise where java)\" clean jar"
+
+[tasks.run]
+run = "java -jar dist/dfEditor.jar"
